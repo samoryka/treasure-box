@@ -1,15 +1,11 @@
 ---
+layout: '../../layouts/ItemLayout.astro'
 title: 'Smocked Lamp 02'
-pubDate: 2026-11-18
-description: 'Description of Smocked Lamp 02'
-author: 'Samory Ka'
+creationDate: 2025-12-01
+publicationDate: 2026-11-18
 image:
-    url: 'https://docs.astro.build/assets/rose.webp'
-    alt: 'The Astro logo on a dark background with a pink glow.'
-tags: ["lamp", "sewing"]
+    src: '../assets/objects/smocked-lamp-2/main.jpg'
+    alt: 'A lamp shade made of cotton fabric. It has a quadrilateal shape and folds forming crosses at the center of each face.'
+tags: ["lamp", "woodworking", "sewing"]
 ---
-# Smocked Lamp 02
-
-Published on: 2026-11-18
-
 After making my [first smocked lamp](/objects/smocked-lamp-1), I created this other variation: a square lampshade with a much looser pattern.

@@ -1,15 +1,12 @@
 ---
+layout: '../../layouts/ItemLayout.astro'
 title: 'Smocked Lamp 01'
-pubDate: 2026-11-18
-description: 'Description of Smocked Lamp 01'
-author: 'Samory Ka'
+creationDate: 2025-10-01
+publicationDate: 2026-11-18
 image:
-    url: 'https://docs.astro.build/assets/rose.webp'
-    alt: 'The Astro logo on a dark background with a pink glow.'
+    src: '../assets/objects/smocked-lamp-1/main.jpg'
+    alt: 'A table lamp with a cubic wooden base in a light shade. It has a cylindrical lampshade made of cotton fabric, which has folds forming a geometric pattern.'
 tags: ["lamp", "woodworking", "sewing"]
 ---
-# Smocked Lamp 01
-
-Published on: 2026-11-18
 
 I saw a video explaining the concept of [smocking](https://en.wikipedia.org/wiki/Smocking), and decided to try it for myself. The smock is tightly stretched to create this large pattern

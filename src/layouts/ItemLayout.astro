@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets";
+import Head from "../components/Head.astro";
+import Navigation from "../components/Navigation.astro";
+
+const {frontmatter} = Astro.props 
+
+const title = frontmatter.title
+const creationDate = new Date(frontmatter.creationDate).toLocaleDateString("en-US", { year: 'numeric', month: 'long'})
+const publicationDate = new Date(frontmatter.publicationDate).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
+const image = frontmatter.image
+const coverImage = () => import(image.src)
+---
+
+<html lang="en">
+	<Head />
+    <Navigation />
+    <body>
+        <h1>{title}</h1>
+        <p>Published on {publicationDate}</p>
+        <Image src={coverImage()} alt={image.alt} width="300" loading="lazy"/>
+        <p>Made in {creationDate}</p>
+        <slot />
+    </body>
+</html>
