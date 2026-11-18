@@ -6,11 +6,15 @@ import Navigation from "../components/Navigation.astro";
 const {frontmatter} = Astro.props 
 
 const title = frontmatter.title
+const slug = frontmatter.title
+
 const creationDate = new Date(frontmatter.creationDate).toLocaleDateString("en-US", { year: 'numeric', month: 'long'})
 const publicationDate = new Date(frontmatter.publicationDate).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/objects/*/*.{jpeg,jpg,png,gif}')
 const image = frontmatter.image
-// const coverImage = () => import(image.src)
-import testCoverImage from "../assets/objects/smocked-lamp-1/main.jpg"
+
+
 ---
 
 <html lang="en">
@@ -19,7 +23,7 @@ import testCoverImage from "../assets/objects/smocked-lamp-1/main.jpg"
     <body>
         <h1>{title}</h1>
         <p>Published on {publicationDate}</p>
-        <Image src={testCoverImage} alt={image.alt} width="300" loading="lazy"/>
+        <Image src={allImages[image.src]()} alt={image.alt} width="300" loading="lazy"/>
         <p>Made in {creationDate}</p>
         <slot />
     </body>
