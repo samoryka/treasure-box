@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import Head from "../components/Head.astro";
 import Navigation from "../components/Navigation.astro";
+import BaseLayout from "./BaseLayout.astro";
 
 const {frontmatter} = Astro.props 
 
@@ -16,14 +17,10 @@ const image = frontmatter.image
 
 ---
 
-<html lang="en">
-	<Head />
-    <Navigation />
-    <body>
-        <h1>{title}</h1>
-        <p>Published on {publicationDate}</p>
-        <Image src={allImages[image.src]()} alt={image.alt} width="300" loading="lazy"/>
-        <p>Made in {creationDate}</p>
-        <slot />
-    </body>
-</html>
+<BaseLayout>
+    <h1>{title}</h1>
+    <p>Published on {publicationDate}</p>
+    <Image src={allImages[image.src]()} alt={image.alt} width="300" loading="lazy"/>
+    <p>Made in {creationDate}</p>
+    <slot />
+</BaseLayout>
