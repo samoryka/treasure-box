@@ -1,5 +1,5 @@
 ---
-layout: '../../layouts/ItemLayout.astro'
+layout: '../../layouts/ObjectLayout.astro'
 title: 'Smocked Lamp 02'
 creationDate: 2025-12-01
 publicationDate: 2026-11-18

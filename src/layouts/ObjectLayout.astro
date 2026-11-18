@@ -6,7 +6,6 @@ import Navigation from "../components/Navigation.astro";
 const {frontmatter} = Astro.props 
 
 const title = frontmatter.title
-const slug = frontmatter.title
 
 const creationDate = new Date(frontmatter.creationDate).toLocaleDateString("en-US", { year: 'numeric', month: 'long'})
 const publicationDate = new Date(frontmatter.publicationDate).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
