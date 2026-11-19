@@ -14,7 +14,7 @@ const allObjects = Object.values(import.meta.glob('./objects/*.md', { eager: tru
 				title={post.frontmatter.title}
 				link={post.url}
 				image={post.frontmatter.image}
-				publicationDate={post.frontmatter.title}/>)
+				date={post.frontmatter.creationDate}/>)
 		}
 	</ul>
 </BaseLayout>
