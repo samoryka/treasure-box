@@ -1,14 +1,19 @@
 ---
-
+const { wrap = true } = Astro.props;
+const flexWrap = wrap ? "wrap" : "nowrap";
+const width = wrap ? null : "100vw";
+const overflow = wrap ? null : "scroll";
 ---
 
-<style>
+<style define:vars={{ flexWrap, width, overflow }}>
   div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: var(--flexWrap);
     padding-top: var(--spacing-m);
+    width: var(--width);
+    overflow: var(--overflow);
   }
 </style>
 

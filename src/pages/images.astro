@@ -1,8 +1,31 @@
 ---
+import CardGallery from "../components/CardGallery.astro";
+import ImageCard from "../components/ImageCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const allImages = Object.values(
+  import.meta.glob("./images/*.md", { eager: true }),
+);
+
+const byNewest = (a: any, b: any) =>
+  Date.parse(b.frontmatter.creationDate) -
+  Date.parse(a.frontmatter.creationDate);
+
+const orderedImages = allImages.sort(byNewest);
 ---
 
 <BaseLayout>
   <h1>Images</h1>
   <p>Some nice images</p>
+  <CardGallery wrap={false}>
+    {
+      orderedImages.map((post: any) => (
+        <ImageCard
+          title={post.frontmatter.title}
+          image={post.frontmatter.image}
+          date={post.frontmatter.creationDate}
+        />
+      ))
+    }
+  </CardGallery>
 </BaseLayout>

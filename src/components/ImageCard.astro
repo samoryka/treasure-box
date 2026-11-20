@@ -1,0 +1,81 @@
+---
+import { Image } from "astro:assets";
+
+const { title, image, date } = Astro.props;
+
+const displayDate = new Date(date).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+});
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/*.{jpeg,jpg,png,gif}",
+);
+---
+
+<style>
+  .card-container {
+    display: inline-grid;
+    align-items: center;
+  }
+
+  .card {
+    background-color: var(--color-white);
+    margin: var(--spacing-s);
+    padding: var(--spacing-m);
+
+    border-radius: var(--border-radius-rounded);
+    color: var(--color-red);
+    text-decoration: none;
+
+    display: inline-grid;
+    align-items: center;
+  }
+  .card:hover > .image {
+    opacity: 30%;
+    filter: blur(var(--blur-value));
+    transition-duration: var(--transition-duration-default);
+  }
+
+  .card:hover > .content {
+    opacity: 100%;
+    transition-duration: var(--transition-duration-default);
+  }
+
+  .image {
+    border-radius: var(--border-radius-rounded);
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .content {
+    opacity: 0;
+    align-content: center;
+    text-align: center;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .subtitle {
+    padding-top: var(--spacing-s);
+  }
+</style>
+
+<div class="card-container">
+  <div class="card">
+    <Image
+      class="image"
+      src={allImages[image.src]()}
+      alt={image.alt}
+      width="400"
+      loading="lazy"
+    />
+    <div class="content">
+      <p class="title">{title}</p>
+      <p class="subtitle">{displayDate}</p>
+    </div>
+  </div>
+</div>
