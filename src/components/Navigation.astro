@@ -6,10 +6,12 @@ const currentPath = Astro.url.pathname;
   nav {
     background-color: var(--color-red);
     margin: 0;
+    position: fixed;
+    width: 100vw;
+    z-index: 100;
     padding: var(--spacing-m) var(--spacing-l);
     font-size: var(--text-size-l);
     font-family: sans-serif;
-    width: 100vw;
   }
 
   a {
@@ -30,14 +32,14 @@ const currentPath = Astro.url.pathname;
 </style>
 
 <nav>
-  <a href="/" class={currentPath === "/" ? "active" : ""}> Home </a>
+  <a href="/" class={currentPath === "/" ? "active" : ""}> HOME </a>
   <a
     href="/objects/"
     class={currentPath.startsWith("/objects") ? "active" : ""}
   >
-    Objects
+    OBJECTS
   </a>
   <a href="/images/" class={currentPath.startsWith("/images") ? "active" : ""}>
-    Images
+    IMAGES
   </a>
 </nav>

@@ -23,6 +23,7 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
     text-decoration: none;
 
     flex-grow: 1;
+    flex-basis: 40%;
 
     display: flex;
     flex-direction: row;
@@ -44,6 +45,10 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
     flex-grow: 1;
   }
 
+  .title {
+    font-weight: bold;
+  }
+
   .subtitle {
     padding-top: var(--spacing-s);
   }
@@ -57,7 +62,7 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
     loading="lazy"
   />
   <div class="content">
-    <p class="title"><b>{title}</b></p>
+    <p class="title">{title}</p>
     <p class="subtitle">{displayDate}</p>
   </div>
 </a>
