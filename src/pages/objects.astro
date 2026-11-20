@@ -1,20 +1,24 @@
 ---
-import ObjectCard from '../components/ObjectCard.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
-const allObjects = Object.values(import.meta.glob('./objects/*.md', { eager: true }));
+import ObjectCard from "../components/ObjectCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+const allObjects = Object.values(
+  import.meta.glob("./objects/*.md", { eager: true }),
+);
 ---
 
 <BaseLayout>
-	<h1>Objects</h1>
-	<p>Some nice objects</p>
-	<ul>
-		{
-			allObjects.map((post: any) =>
-				<ObjectCard
-				title={post.frontmatter.title}
-				link={post.url}
-				image={post.frontmatter.image}
-				date={post.frontmatter.creationDate}/>)
-		}
-	</ul>
+  <h1>Objects</h1>
+  <p>Some nice objects</p>
+  <ul>
+    {
+      allObjects.map((post: any) => (
+        <ObjectCard
+          title={post.frontmatter.title}
+          link={post.url}
+          image={post.frontmatter.image}
+          date={post.frontmatter.creationDate}
+        />
+      ))
+    }
+  </ul>
 </BaseLayout>

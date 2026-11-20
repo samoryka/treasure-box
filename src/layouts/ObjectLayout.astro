@@ -2,23 +2,37 @@
 import { Image } from "astro:assets";
 import BaseLayout from "./BaseLayout.astro";
 
-const {frontmatter} = Astro.props 
+const { frontmatter } = Astro.props;
 
-const title = frontmatter.title
+const title = frontmatter.title;
 
-const creationDate = new Date(frontmatter.creationDate).toLocaleDateString("en-US", { year: 'numeric', month: 'long'})
-const publicationDate = new Date(frontmatter.publicationDate).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
+const creationDate = new Date(frontmatter.creationDate).toLocaleDateString(
+  "en-US",
+  { year: "numeric", month: "long" },
+);
+const publicationDate = new Date(
+  frontmatter.publicationDate,
+).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
 
-const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/objects/*/*.{jpeg,jpg,png,gif}')
-const image = frontmatter.image
-
-
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/objects/*/*.{jpeg,jpg,png,gif}",
+);
+const image = frontmatter.image;
 ---
 
 <BaseLayout>
-    <h1>{title}</h1>
-    <p>Published on {publicationDate}</p>
-    <Image src={allImages[image.src]()} alt={image.alt} width="300" loading="lazy"/>
-    <p>Made in {creationDate}</p>
-    <slot />
+  <h1>{title}</h1>
+  <p>Published on {publicationDate}</p>
+  <Image
+    src={allImages[image.src]()}
+    alt={image.alt}
+    width="300"
+    loading="lazy"
+  />
+  <p>Made in {creationDate}</p>
+  <slot />
 </BaseLayout>
