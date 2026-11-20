@@ -1,5 +1,5 @@
 ---
-title: "Big hair (aufstrich for reference)"
+title: "Big hair (Aufstrich for reference)"
 creationDate: 2024-03-14
 publicationDate: 2026-11-20
 image:
