@@ -10,13 +10,6 @@ const creationDate = new Date(frontmatter.creationDate).toLocaleDateString(
   "en-US",
   { year: "numeric", month: "long" },
 );
-const publicationDate = new Date(
-  frontmatter.publicationDate,
-).toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
 
 const allImages = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/objects/*/*.{jpeg,jpg,png,gif}",
@@ -24,10 +17,26 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
 const image = frontmatter.image;
 ---
 
+<style>
+  .header {
+    text-align: center;
+  }
+  .coverImage {
+    padding: var(--spacing-s) 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
 <BaseLayout>
-  <h1>{title}</h1>
-  <p>Published on {publicationDate}</p>
-  <Image src={allImages[image.src]()} alt={image.alt} width="300" />
-  <p>Made in {creationDate}</p>
+  <div class="header">
+    <h1>{title}</h1>
+    <p>{creationDate}</p>
+  </div>
+  <div class="coverImage">
+    <Image src={allImages[image.src]()} alt={image.alt} width="300" />
+  </div>
   <slot />
 </BaseLayout>
