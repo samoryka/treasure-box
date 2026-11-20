@@ -14,33 +14,50 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
 
 <style>
   .card {
+    background-color: var(--color-white);
+    margin: var(--spacing-s);
+    padding: var(--spacing-m);
+
+    border-radius: var(--border-radius-rounded);
+    color: var(--color-red);
+    text-decoration: none;
+
+    flex-grow: 1;
+
     display: flex;
-    background-color: #e7e7e7;
     flex-direction: row;
-    padding: 8px;
-    border-radius: 8px;
-    width: 300px;
-    margin: 4px;
   }
-  .card:hover {
-    background-color: #ffffff;
+  .card:hover > * {
+    opacity: 70%;
+    filter: blur(var(--blur-value));
+    transition-duration: var(--transition-duration-default);
+  }
+
+  .image {
+    border-radius: var(--border-radius-rounded);
   }
 
   .content {
-    padding: 8px;
+    padding-left: var(--spacing-s);
+    align-content: center;
+    text-align: center;
+    flex-grow: 1;
+  }
+
+  .subtitle {
+    padding-top: var(--spacing-s);
   }
 </style>
-<a href={link}>
-  <div class="card">
-    <Image
-      src={allImages[image.src]()}
-      alt={image.alt}
-      height="100"
-      loading="lazy"
-    />
-    <div class="content">
-      <p>{title}</p>
-      <p>{displayDate}</p>
-    </div>
+<a href={link} class="card">
+  <Image
+    class="image"
+    src={allImages[image.src]()}
+    alt={image.alt}
+    height="200"
+    loading="lazy"
+  />
+  <div class="content">
+    <p class="title"><b>{title}</b></p>
+    <p class="subtitle">{displayDate}</p>
   </div>
 </a>

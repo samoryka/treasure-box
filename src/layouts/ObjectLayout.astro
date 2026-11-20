@@ -27,12 +27,7 @@ const image = frontmatter.image;
 <BaseLayout>
   <h1>{title}</h1>
   <p>Published on {publicationDate}</p>
-  <Image
-    src={allImages[image.src]()}
-    alt={image.alt}
-    width="300"
-    loading="lazy"
-  />
+  <Image src={allImages[image.src]()} alt={image.alt} width="300" />
   <p>Made in {creationDate}</p>
   <slot />
 </BaseLayout>

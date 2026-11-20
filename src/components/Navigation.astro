@@ -1,9 +1,43 @@
 ---
-
+const currentPath = Astro.url.pathname;
 ---
 
+<style>
+  nav {
+    background-color: var(--color-red);
+    margin: 0;
+    padding: var(--spacing-m) var(--spacing-l);
+    font-size: var(--text-size-l);
+    font-family: sans-serif;
+    width: 100vw;
+  }
+
+  a {
+    color: var(--color-beige);
+    text-decoration: none;
+    padding: var(--spacing-s);
+  }
+  a.active {
+    color: var(--color-white);
+  }
+
+  a:hover {
+    color: var(--color-white);
+  }
+  a:first-child {
+    padding-left: 0;
+  }
+</style>
+
 <nav>
-  <a href="/">Home</a>
-  <a href="/objects/">Objects</a>
-  <a href="/images/">Images</a>
+  <a href="/" class={currentPath === "/" ? "active" : ""}> Home </a>
+  <a
+    href="/objects/"
+    class={currentPath.startsWith("/objects") ? "active" : ""}
+  >
+    Objects
+  </a>
+  <a href="/images/" class={currentPath.startsWith("/images") ? "active" : ""}>
+    Images
+  </a>
 </nav>

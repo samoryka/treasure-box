@@ -1,0 +1,31 @@
+---
+import Footer from "./Footer.astro";
+---
+
+<style>
+  div {
+    padding: var(--spacing-l) var(--spacing-xl);
+    flex: 1;
+  }
+
+  @media (max-width: 600px) {
+    div {
+      padding: var(--spacing-l);
+    }
+  }
+
+  :global(h1) {
+    margin: var(--spacing-s) 0;
+    font-family: sans-serif;
+    text-align: center;
+  }
+
+  :global(p) {
+    margin: 0;
+  }
+</style>
+
+<div>
+  <slot />
+</div>
+<Footer />
