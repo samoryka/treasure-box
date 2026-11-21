@@ -21,6 +21,7 @@ const image = frontmatter.image;
   .header {
     text-align: center;
   }
+
   .coverImage {
     padding: var(--spacing-s) 0;
 
@@ -38,5 +39,7 @@ const image = frontmatter.image;
   <div class="coverImage">
     <Image src={allImages[image.src]()} alt={image.alt} width="300" />
   </div>
-  <slot />
+  <div class="content">
+    <slot />
+  </div>
 </BaseLayout>
