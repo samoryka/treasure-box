@@ -1,24 +1,24 @@
 ---
 interface Props {
-  wrap?: boolean;
+  layout?: "grid" | "horizontal-scroll";
 }
 
-const { wrap = true } = Astro.props;
-const flexWrap = wrap ? "wrap" : "nowrap";
-const width = wrap ? "auto" : "100vw";
-const overflow = wrap ? "visible" : "scroll";
+const { layout = "grid" } = Astro.props;
 ---
 
-<style define:vars={{ flexWrap, width, overflow }}>
+<style>
   .gallery {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     gap: var(--spacing-m);
-    flex-wrap: var(--flexWrap);
+    flex-wrap: wrap;
     padding-top: var(--spacing-m);
-    width: var(--width);
-    overflow: var(--overflow);
+  }
+
+  .gallery.horizontal-scroll {
+    flex-wrap: nowrap;
+    width: 100vw;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
 
   .gallery :global(.galleryImage) {
@@ -37,6 +37,6 @@ const overflow = wrap ? "visible" : "scroll";
   }
 </style>
 
-<div class="gallery">
+<div class:list={["gallery", layout]}>
   <slot />
 </div>

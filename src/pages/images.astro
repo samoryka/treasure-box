@@ -16,7 +16,7 @@ const orderedImages = allImages.sort(byNewest);
 
 <BaseLayout>
   <h1>Paintings, prints, pictures</h1>
-  <Gallery wrap={false}>
+  <Gallery layout="horizontal-scroll">
     {
       orderedImages.map((post: any) => (
         <ImageCard
