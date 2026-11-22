@@ -20,7 +20,7 @@ tags: ["lamp", "woodworking", "sewing"]
 
 <section>
   <p>
-  Two of my friends moved to another country, and I wanted to make something they could bring with them. That gave me the idea for a lamp they could easily travel with.
+  Two of my friends were planning to move to another country, and I wanted to make something they could bring with them. That gave me the idea for a lamp they could easily travel with.
   </p>
 </section>
 
