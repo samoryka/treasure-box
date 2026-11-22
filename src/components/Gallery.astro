@@ -1,53 +1,42 @@
 ---
-import { Image } from "astro:assets";
-
 interface Props {
-  images: {
-    src: string;
-    alt: string;
-  }[];
+  wrap?: boolean;
 }
 
-const { images } = Astro.props;
-
-const allImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/objects/*/*.{jpeg,jpg,png,gif}",
-);
+const { wrap = true } = Astro.props;
+const flexWrap = wrap ? "wrap" : "nowrap";
+const width = wrap ? "auto" : "100vw";
+const overflow = wrap ? "visible" : "scroll";
 ---
 
-<style>
+<style define:vars={{ flexWrap, width, overflow }}>
   .gallery {
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     gap: var(--spacing-m);
+    flex-wrap: var(--flexWrap);
+    padding-top: var(--spacing-m);
+    width: var(--width);
+    overflow: var(--overflow);
   }
 
-  .galleryImage {
+  .gallery :global(.galleryImage) {
     flex-grow: 1;
     flex-basis: 40%;
     width: 100%;
     height: auto;
+    align-self: flex-start;
     border-radius: var(--border-radius-rounded);
   }
 
   @media (max-width: 600px) {
-    .galleryImage {
+    .gallery :global(.galleryImage) {
       flex-basis: 100%;
     }
   }
 </style>
 
 <div class="gallery">
-  {
-    images.map((image) => (
-      <Image
-        class="galleryImage"
-        src={allImages[image.src]()}
-        alt={image.alt}
-        loading="lazy"
-      />
-    ))
-  }
+  <slot />
 </div>

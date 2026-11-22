@@ -56,7 +56,16 @@ const gallery = frontmatter.gallery ?? [];
   {
     gallery.length > 0 && (
       <section class="gallerySection">
-        <Gallery images={gallery} />
+        <Gallery>
+          {gallery.map((galleryImage) => (
+            <Image
+              class="galleryImage"
+              src={allImages[galleryImage.src]()}
+              alt={galleryImage.alt}
+              loading="lazy"
+            />
+          ))}
+        </Gallery>
       </section>
     )
   }

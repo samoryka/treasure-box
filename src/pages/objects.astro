@@ -1,5 +1,5 @@
 ---
-import CardGallery from "../components/CardGallery.astro";
+import Gallery from "../components/Gallery.astro";
 import ObjectCard from "../components/ObjectCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 const allObjects = Object.values(
@@ -15,7 +15,7 @@ const orderedObjects = allObjects.sort(byNewest);
 
 <BaseLayout>
   <h1>Lamps, furniture, wooden objects</h1>
-  <CardGallery>
+  <Gallery>
     {
       orderedObjects.map((post: any) => (
         <ObjectCard
@@ -26,5 +26,5 @@ const orderedObjects = allObjects.sort(byNewest);
         />
       ))
     }
-  </CardGallery>
+  </Gallery>
 </BaseLayout>
