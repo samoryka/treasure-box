@@ -5,13 +5,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const allObjects = Object.values(
   import.meta.glob("./objects/*.md", { eager: true }),
 );
+
+const byNewest = (a: any, b: any) =>
+  Date.parse(b.frontmatter.creationDate) -
+  Date.parse(a.frontmatter.creationDate);
+
+const orderedObjects = allObjects.sort(byNewest);
 ---
 
 <BaseLayout>
   <h1>Lamps, furniture, wooden objects</h1>
   <CardGallery>
     {
-      allObjects.map((post: any) => (
+      orderedObjects.map((post: any) => (
         <ObjectCard
           title={post.frontmatter.title}
           link={post.url}
