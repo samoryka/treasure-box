@@ -33,6 +33,8 @@ const gallery = frontmatter.gallery ?? [];
   }
   .coverImage img {
     border-radius: var(--border-radius-rounded);
+    width: 300px;
+    height: auto;
   }
 
   .gallerySection {
@@ -46,7 +48,7 @@ const gallery = frontmatter.gallery ?? [];
     <p>{creationDate}</p>
   </div>
   <div class="coverImage">
-    <Image src={allImages[image.src]()} alt={image.alt} width="300" />
+    <Image src={allImages[image.src]()} alt={image.alt} loading="lazy" />
   </div>
   <div class="content">
     <slot />

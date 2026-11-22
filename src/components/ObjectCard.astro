@@ -58,7 +58,8 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
     class="image"
     src={allImages[image.src]()}
     alt={image.alt}
-    height="200"
+    height="200px"
+    quality="max"
     loading="lazy"
   />
   <div class="content">
