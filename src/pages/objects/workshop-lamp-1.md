@@ -20,7 +20,7 @@ tags: ["lamp", "woodworking", "sewing"]
 
 <section>
   <p>
-  I was attended a (wonderful!) party where anyone can offer a workshop. I decided to share the lamp-making skills I learned and came up with this model that could be replicated by anyone.
+  I attended a (wonderful!) party where anyone can offer a workshop. I decided to share the lamp-making skills I learned and came up with this model that could be replicated by anyone.
   </p>
 </section>
 
