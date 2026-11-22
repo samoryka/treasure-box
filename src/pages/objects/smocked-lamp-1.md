@@ -6,6 +6,15 @@ publicationDate: 2026-11-18
 image:
   src: "/src/assets/objects/smocked-lamp-1/main.jpg"
   alt: "A table lamp with a cubic wooden base in a light shade. It has a cylindrical lampshade made of cotton fabric, which has folds forming a geometric pattern."
+gallery:
+  - src: "/src/assets/objects/smocked-lamp-1/1.jpg"
+    alt: "The lamp base drying."
+  - src: "/src/assets/objects/smocked-lamp-1/2.jpg"
+    alt: "Smocked fabric being stretched, showing the pattern."
+  - src: "/src/assets/objects/smocked-lamp-1/3.jpg"
+    alt: "The lampshade getting stuck on the lampshade frame."
+  - src: "/src/assets/objects/smocked-lamp-1/4.jpg"
+    alt: "The finished lamp turned off."
 tags: ["lamp", "woodworking", "sewing"]
 ---
 

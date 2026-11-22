@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import Gallery from "../components/Gallery.astro";
 import BaseLayout from "./BaseLayout.astro";
 
 const { frontmatter } = Astro.props;
@@ -15,6 +16,7 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/objects/*/*.{jpeg,jpg,png,gif}",
 );
 const image = frontmatter.image;
+const gallery = frontmatter.gallery ?? [];
 ---
 
 <style>
@@ -29,6 +31,13 @@ const image = frontmatter.image;
     justify-content: center;
     align-items: center;
   }
+  .coverImage img {
+    border-radius: var(--border-radius-rounded);
+  }
+
+  .gallerySection {
+    margin-top: var(--spacing-l);
+  }
 </style>
 
 <BaseLayout>
@@ -42,4 +51,11 @@ const image = frontmatter.image;
   <div class="content">
     <slot />
   </div>
+  {
+    gallery.length > 0 && (
+      <section class="gallerySection">
+        <Gallery images={gallery} />
+      </section>
+    )
+  }
 </BaseLayout>

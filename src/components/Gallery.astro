@@ -1,0 +1,53 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  images: {
+    src: string;
+    alt: string;
+  }[];
+}
+
+const { images } = Astro.props;
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/objects/*/*.{jpeg,jpg,png,gif}",
+);
+---
+
+<style>
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--spacing-m);
+  }
+
+  .galleryImage {
+    flex-grow: 1;
+    flex-basis: 40%;
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-rounded);
+  }
+
+  @media (max-width: 600px) {
+    .galleryImage {
+      flex-basis: 100%;
+    }
+  }
+</style>
+
+<div class="gallery">
+  {
+    images.map((image) => (
+      <Image
+        class="galleryImage"
+        src={allImages[image.src]()}
+        alt={image.alt}
+        loading="lazy"
+      />
+    ))
+  }
+</div>
