@@ -45,6 +45,8 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
     border-radius: var(--border-radius-rounded);
     grid-column: 1;
     grid-row: 1;
+    width: 400px;
+    height: auto;
   }
 
   .content {
@@ -70,7 +72,6 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
       class="image"
       src={allImages[image.src]()}
       alt={image.alt}
-      width="400"
       loading="lazy"
     />
     <div class="content">
