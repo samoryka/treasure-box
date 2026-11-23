@@ -1,5 +1,5 @@
 ---
-
+const currentYear = new Date().toLocaleDateString("en-US", { year: "numeric" });
 ---
 
 <style>
@@ -10,4 +10,4 @@
   }
 </style>
 
-<footer>© 2026 Samory Ka. All rights reserved.</footer>
+<footer>© {currentYear} Samory Ka. All rights reserved.</footer>
