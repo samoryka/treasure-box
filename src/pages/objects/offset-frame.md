@@ -16,6 +16,12 @@ tags: ["woodworking"]
 
 <section>
   <p>
-  A small frame meant to display and highlight a specific picture.
+  A small frame custom made to fit a specific picture.
+  </p>
+</section>
+
+<section>
+  <p>
+  I used a mix of hardwood and plywood which I both tinted with hard wax oil.
   </p>
 </section>
