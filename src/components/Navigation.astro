@@ -33,14 +33,12 @@ const currentPath = Astro.url.pathname;
 </style>
 
 <nav>
-  <a href="/" class={currentPath === "/" ? "active" : ""}> HOME </a>
-  <a
-    href="/objects/"
-    class={currentPath.startsWith("/objects") ? "active" : ""}
+  <a href="/" class={currentPath === "/" ? "active" : ""} aria-label="HOME">⏺</a
   >
-    OBJECTS
-  </a>
-  <a href="/images/" class={currentPath.startsWith("/images") ? "active" : ""}>
-    IMAGES
-  </a>
+  <a href="/objects/" class={currentPath.startsWith("/objects") ? "active" : ""}
+    >OBJECTS</a
+  >
+  <a href="/images/" class={currentPath.startsWith("/images") ? "active" : ""}
+    >IMAGES</a
+  >
 </nav>
