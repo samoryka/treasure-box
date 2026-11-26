@@ -1,4 +1,5 @@
 import rss from "@astrojs/rss";
+import { getImage } from "astro:assets";
 import type { APIContext } from "astro";
 
 type Post = {
@@ -6,12 +7,30 @@ type Post = {
     title: string;
     publicationDate: string | Date;
     description?: string;
+    gallery?: { src: string; alt: string }[];
   };
   url: string;
   compiledContent: () => Promise<string>;
 };
 
+const objectImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/objects/*/*.{jpeg,jpg,png,gif}",
+  { eager: true },
+);
+
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+
 export async function GET(context: APIContext) {
+  const site = context.site;
+  if (!site) {
+    throw new Error("The site URL is required to include RSS gallery images");
+  }
+
   const posts = [
     ...Object.values(import.meta.glob<Post>("./objects/*.md", { eager: true })),
     ...Object.values(import.meta.glob<Post>("./images/*.md", { eager: true })),
@@ -24,14 +43,29 @@ export async function GET(context: APIContext) {
   return rss({
     title: "Samory's Treasure Box",
     description: "Recent projects by Samory Ka.",
-    site: context.site,
+    site,
     items: await Promise.all(
       posts.map(async (post) => ({
         title: post.frontmatter.title,
         description: post.frontmatter.description,
         link: post.url,
         pubDate: new Date(String(post.frontmatter.publicationDate)),
-        content: await post.compiledContent(),
+        content: [
+          await post.compiledContent(),
+          ...(await Promise.all(
+            (post.frontmatter.gallery ?? []).map(async ({ src, alt }) => {
+              const image = objectImages[src]?.default;
+              if (!image) {
+                throw new Error(`RSS gallery image was not found: ${src}`);
+              }
+
+              const optimizedImage = await getImage({ src: image });
+              const imageUrl = new URL(optimizedImage.src, site).href;
+              const attributes = `src="${escapeHtml(imageUrl)}" alt="${escapeHtml(alt)}"`;
+              return `<figure><img ${attributes}></figure>`;
+            }),
+          )),
+        ].join("\n"),
       })),
     ),
   });
