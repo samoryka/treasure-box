@@ -107,15 +107,20 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
         "[data-image-open]",
       );
     const closeButton = dialog.querySelector<HTMLButtonElement>(".close");
+    const image = dialog.querySelector<HTMLImageElement>(".image");
     if (!trigger) {
       throw new Error("Image viewer trigger was not found");
     }
     if (!closeButton) {
       throw new Error("Image viewer close button was not found");
     }
+    if (!image) {
+      throw new Error("Image viewer image was not found");
+    }
 
     trigger.addEventListener("click", () => dialog.showModal());
     closeButton.addEventListener("click", () => dialog.close());
+    image.addEventListener("click", () => dialog.close());
     dialog.addEventListener("click", (event) => {
       if (event.target === dialog) dialog.close();
     });
