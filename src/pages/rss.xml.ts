@@ -7,6 +7,7 @@ type Post = {
     title: string;
     publicationDate: string | Date;
     description?: string;
+    image: { src: string; alt: string };
     gallery?: { src: string; alt: string }[];
   };
   url: string;
@@ -28,8 +29,22 @@ const escapeHtml = (value: string) =>
 export async function GET(context: APIContext) {
   const site = context.site;
   if (!site) {
-    throw new Error("The site URL is required to include RSS gallery images");
+    throw new Error("The site URL is required to include RSS object images");
   }
+
+  const renderObjectImage = async (
+    { src, alt }: Post["frontmatter"]["image"],
+  ) => {
+    const image = objectImages[src]?.default;
+    if (!image) {
+      throw new Error(`RSS object image was not found: ${src}`);
+    }
+
+    const optimizedImage = await getImage({ src: image });
+    const imageUrl = new URL(optimizedImage.src, site).href;
+    const attributes = `src="${escapeHtml(imageUrl)}" alt="${escapeHtml(alt)}"`;
+    return `<figure><img ${attributes}></figure>`;
+  };
 
   const posts = [
     ...Object.values(import.meta.glob<Post>("./objects/*.md", { eager: true })),
@@ -51,19 +66,12 @@ export async function GET(context: APIContext) {
         link: post.url,
         pubDate: new Date(String(post.frontmatter.publicationDate)),
         content: [
+          ...(post.url.startsWith("/objects/")
+            ? [await renderObjectImage(post.frontmatter.image)]
+            : []),
           await post.compiledContent(),
           ...(await Promise.all(
-            (post.frontmatter.gallery ?? []).map(async ({ src, alt }) => {
-              const image = objectImages[src]?.default;
-              if (!image) {
-                throw new Error(`RSS gallery image was not found: ${src}`);
-              }
-
-              const optimizedImage = await getImage({ src: image });
-              const imageUrl = new URL(optimizedImage.src, site).href;
-              const attributes = `src="${escapeHtml(imageUrl)}" alt="${escapeHtml(alt)}"`;
-              return `<figure><img ${attributes}></figure>`;
-            }),
+            (post.frontmatter.gallery ?? []).map(renderObjectImage),
           )),
         ].join("\n"),
       })),
