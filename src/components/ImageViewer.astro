@@ -1,0 +1,125 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  title: string;
+  date: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+}
+
+const { title, image, date } = Astro.props;
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/*.{jpeg,jpg,png,gif}",
+);
+---
+
+<style>
+  .viewer {
+    position: fixed;
+    inset: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    background: var(--color-beige);
+    color: var(--color-red);
+  }
+
+  .viewer[open] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--spacing-l);
+  }
+
+  .close {
+    align-self: flex-end;
+    padding: var(--spacing-m) var(--spacing-l);
+    border: 1px solid currentColor;
+    border-radius: var(--border-radius-rounded);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .viewer figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-l);
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .imageFrame {
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: var(--spacing-m);
+    border-radius: var(--border-radius-rounded);
+    background-color: var(--color-white);
+  }
+
+  .image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    border-radius: var(--border-radius-rounded);
+    max-height: calc(100vh - 10rem);
+    object-fit: contain;
+  }
+
+  .viewer figcaption {
+    text-align: center;
+  }
+
+</style>
+
+<dialog class="viewer" aria-label={title}>
+  <button type="button" class="close" aria-label="Close image viewer">
+    Close
+  </button>
+  <figure>
+    <div class="imageFrame">
+      <Image
+        class="image"
+        src={allImages[image.src]()}
+        alt={image.alt}
+        loading="lazy"
+      />
+    </div>
+    <figcaption>
+      <span><b>{title}</b> - {date}</span>
+    </figcaption>
+  </figure>
+</dialog>
+
+<script>
+  document.querySelectorAll<HTMLDialogElement>(".viewer").forEach((dialog) => {
+    const trigger =
+      dialog.parentElement?.querySelector<HTMLButtonElement>(
+        "[data-image-open]",
+      );
+    const closeButton = dialog.querySelector<HTMLButtonElement>(".close");
+    if (!trigger) {
+      throw new Error("Image viewer trigger was not found");
+    }
+    if (!closeButton) {
+      throw new Error("Image viewer close button was not found");
+    }
+
+    trigger.addEventListener("click", () => dialog.showModal());
+    closeButton.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  });
+</script>

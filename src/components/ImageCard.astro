@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import ImageViewer from "./ImageViewer.astro";
 
 const { title, image, date } = Astro.props;
 
@@ -13,7 +14,7 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
 ---
 
 <style>
-  .card-container {
+  .cardContainer {
     display: inline-grid;
     align-items: center;
   }
@@ -21,14 +22,15 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
   .card {
     background-color: var(--color-white);
     padding: var(--spacing-m);
-
+    border: 0;
     border-radius: var(--border-radius-rounded);
     color: var(--color-red);
-    text-decoration: none;
-
+    font: inherit;
+    cursor: pointer;
     display: inline-grid;
     align-items: center;
   }
+
   .card:hover > .image {
     opacity: 30%;
     filter: blur(var(--blur-intense));
@@ -61,21 +63,28 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
   }
 
   .subtitle {
+    display: block;
     padding-top: var(--spacing-s);
   }
 </style>
 
-<div class="card-container">
-  <div class="card">
+<div class="cardContainer">
+  <button
+    type="button"
+    class="card"
+    aria-label={`View ${title} full screen`}
+    data-image-open
+  >
     <Image
       class="image"
       src={allImages[image.src]()}
       alt={image.alt}
       loading="lazy"
     />
-    <div class="content" aria-hidden="true">
-      <p class="title">{title}</p>
-      <p class="subtitle">{displayDate}</p>
-    </div>
-  </div>
+    <span class="content" aria-hidden="true">
+      <span class="title">{title}</span>
+      <span class="subtitle">{displayDate}</span>
+    </span>
+  </button>
+  <ImageViewer title={title} image={image} date={displayDate} />
 </div>
