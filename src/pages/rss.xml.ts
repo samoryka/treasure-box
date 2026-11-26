@@ -14,10 +14,16 @@ type Post = {
   compiledContent: () => Promise<string>;
 };
 
-const objectImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/objects/*/*.{jpeg,jpg,png,gif}",
-  { eager: true },
-);
+const postImages = {
+  ...import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/objects/*/*.{jpeg,jpg,png,gif}",
+    { eager: true },
+  ),
+  ...import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/images/*.{jpeg,jpg,png,gif}",
+    { eager: true },
+  ),
+};
 
 const escapeHtml = (value: string) =>
   value
@@ -29,16 +35,13 @@ const escapeHtml = (value: string) =>
 export async function GET(context: APIContext) {
   const site = context.site;
   if (!site) {
-    throw new Error("The site URL is required to include RSS object images");
+    throw new Error("The site URL is required to include RSS images");
   }
 
-  const renderObjectImage = async ({
-    src,
-    alt,
-  }: Post["frontmatter"]["image"]) => {
-    const image = objectImages[src]?.default;
+  const renderImage = async ({ src, alt }: Post["frontmatter"]["image"]) => {
+    const image = postImages[src]?.default;
     if (!image) {
-      throw new Error(`RSS object image was not found: ${src}`);
+      throw new Error(`RSS image was not found: ${src}`);
     }
 
     const optimizedImage = await getImage({ src: image });
@@ -67,12 +70,10 @@ export async function GET(context: APIContext) {
         link: post.url,
         pubDate: new Date(String(post.frontmatter.publicationDate)),
         content: [
-          ...(post.url.startsWith("/objects/")
-            ? [await renderObjectImage(post.frontmatter.image)]
-            : []),
+          await renderImage(post.frontmatter.image),
           await post.compiledContent(),
           ...(await Promise.all(
-            (post.frontmatter.gallery ?? []).map(renderObjectImage),
+            (post.frontmatter.gallery ?? []).map(renderImage),
           )),
         ].join("\n"),
       })),
