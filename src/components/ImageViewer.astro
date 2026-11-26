@@ -51,6 +51,12 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
     font-family: sans-serif;
   }
 
+  .close:hover {
+    background-color: var(--color-red);
+    border-color: var(--color-red);
+    color: var(--color-beige);
+  }
+
   .viewer figure {
     display: flex;
     flex-direction: column;
