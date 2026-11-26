@@ -1,10 +1,9 @@
 ---
 interface Props {
   labelledBy?: string;
-  layout?: "grid" | "horizontal-scroll";
 }
 
-const { labelledBy, layout = "grid" } = Astro.props;
+const { labelledBy } = Astro.props;
 ---
 
 <style>
@@ -13,13 +12,7 @@ const { labelledBy, layout = "grid" } = Astro.props;
     gap: var(--spacing-m);
     flex-wrap: wrap;
     padding-top: var(--spacing-m);
-  }
-
-  .gallery.horizontal-scroll {
-    flex-wrap: nowrap;
-    width: 100vw;
-    overflow-x: auto;
-    overflow-y: hidden;
+    justify-content: center;
   }
 
   .gallery :global(.galleryImage) {
@@ -27,7 +20,7 @@ const { labelledBy, layout = "grid" } = Astro.props;
     flex-basis: 40%;
     width: 100%;
     height: auto;
-    align-self: flex-start;
+    /* align-self: flex-start; */
     border-radius: var(--border-radius-rounded);
   }
 
@@ -38,6 +31,6 @@ const { labelledBy, layout = "grid" } = Astro.props;
   }
 </style>
 
-<div class:list={["gallery", layout]} role="group" aria-labelledby={labelledBy}>
+<div class="gallery" role="group" aria-labelledby={labelledBy}>
   <slot />
 </div>
