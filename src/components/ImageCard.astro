@@ -50,8 +50,8 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
     border-radius: var(--border-radius-rounded);
     grid-column: 1;
     grid-row: 1;
-    width: 400px;
-    height: auto;
+    width: auto;
+    height: 200px;
   }
 
   .content {
@@ -78,6 +78,13 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
 
     .image {
       width: 100%;
+      height: auto;
+    }
+  }
+
+  @media (min-width: 600px) {
+    .content {
+      display: none;
     }
   }
 </style>
