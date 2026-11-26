@@ -17,9 +17,12 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
   .cardContainer {
     display: inline-grid;
     align-items: center;
+    max-width: 100%;
   }
 
   .card {
+    box-sizing: border-box;
+    max-width: 100%;
     background-color: var(--color-white);
     padding: var(--spacing-m);
     border: 0;
@@ -43,6 +46,7 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
   }
 
   .image {
+    max-width: 100%;
     border-radius: var(--border-radius-rounded);
     grid-column: 1;
     grid-row: 1;
@@ -65,6 +69,16 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
   .subtitle {
     display: block;
     padding-top: var(--spacing-s);
+  }
+
+  @media (max-width: 600px) {
+    .card {
+      width: 100%;
+    }
+
+    .image {
+      width: 100%;
+    }
   }
 </style>
 
