@@ -14,8 +14,8 @@ const orderedObjects = allObjects.sort(byNewest);
 ---
 
 <BaseLayout>
-  <h1>Lamps, furniture, wooden objects</h1>
-  <Gallery>
+  <h1 id="title">Lamps, furniture, wooden objects</h1>
+  <Gallery labelledBy="title">
     {
       orderedObjects.map((post: any) => (
         <ObjectCard

@@ -73,7 +73,7 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
       alt={image.alt}
       loading="lazy"
     />
-    <div class="content">
+    <div class="content" aria-hidden="true">
       <p class="title">{title}</p>
       <p class="subtitle">{displayDate}</p>
     </div>
