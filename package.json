@@ -15,6 +15,7 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.19",
     "astro": "^7.4.12"
   },
   "devDependencies": {
