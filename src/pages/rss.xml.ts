@@ -32,9 +32,10 @@ export async function GET(context: APIContext) {
     throw new Error("The site URL is required to include RSS object images");
   }
 
-  const renderObjectImage = async (
-    { src, alt }: Post["frontmatter"]["image"],
-  ) => {
+  const renderObjectImage = async ({
+    src,
+    alt,
+  }: Post["frontmatter"]["image"]) => {
     const image = objectImages[src]?.default;
     if (!image) {
       throw new Error(`RSS object image was not found: ${src}`);
