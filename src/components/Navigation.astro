@@ -7,17 +7,21 @@ const currentPath = Astro.url.pathname;
     background-color: var(--color-red);
     margin: 0;
     position: fixed;
-    width: 100vw;
+    box-sizing: border-box;
+    width: 100%;
     z-index: 100;
     padding: var(--spacing-m) var(--spacing-l);
     font-size: var(--text-size-l);
     font-family: sans-serif;
+
+    display: flex;
+    gap: var(--spacing-m);
+    align-items: center;
   }
 
   a {
     color: var(--color-beige);
     text-decoration: none;
-    padding: var(--spacing-s);
   }
   a.active {
     color: var(--color-white);
@@ -27,8 +31,10 @@ const currentPath = Astro.url.pathname;
   a:hover {
     color: var(--color-white);
   }
-  a:first-child {
-    padding-left: 0;
+
+  .rightLink {
+    margin-left: auto;
+    font-size: var(--text-size-m);
   }
 </style>
 
@@ -41,4 +47,5 @@ const currentPath = Astro.url.pathname;
   <a href="/images/" class={currentPath.startsWith("/images") ? "active" : ""}
     >IMAGES</a
   >
+  <a href="/rss.xml" class="rightLink" target="_blank" rel="noopener">RSS</a>
 </nav>
