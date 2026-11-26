@@ -1,8 +1,96 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Portrait from "../assets/index/portrait.jpg";
 ---
+
+<style>
+  .content {
+    padding-top: var(--spacing-l);
+
+    display: flex;
+    gap: var(--spacing-l);
+  }
+
+  section {
+    padding-top: 0;
+    flex-grow: 5;
+  }
+
+  .content > section > p {
+    padding-top: var(--spacing-m);
+  }
+
+  .content > section > .firstParagraph {
+    padding-top: 0;
+  }
+
+  .portraitHolder {
+    flex-grow: 1;
+    margin: 0;
+  }
+
+  .portrait {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-rounded);
+  }
+  figcaption {
+    text-align: right;
+    font-size: var(--text-size-xs);
+  }
+
+  @media (max-width: 600px) {
+    .content {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .portraitHolder {
+      margin: 0 var(--spacing-l);
+    }
+  }
+</style>
 
 <BaseLayout>
   <h1>Samory's treasure box</h1>
-  <p>A collection of works by Samory Ka</p>
+  <div class="content">
+    <section>
+      <p class="firstParagraph">Hello, welcome to my personal archive!</p>
+      <p>
+        In 2013, in an effort to spend less time in front of screens, I decided
+        to learn how to paint with watercolor. This led me down the path of
+        learning many crafty hobbies, which I'm showcasing on this website!
+      </p>
+      <p>
+        These days I'm mostly doing woodworking. I usually learn by myself
+        following various online tutorials, at the <a
+          href="https://www.berlin.de/vhs/kurse/"
+          target="_blank"
+          rel="noopener">Volkshochschule in Berlin</a
+        >, or with friends.
+      </p>
+      <p>
+        My current project is making a <a
+          href="https://de.wikipedia.org/wiki/Fliesentisch"
+          target="_blank"
+          rel="noopener">Fliesentisch</a
+        > in collaboration with a ceramicist friend. More on that soon :)
+      </p>
+    </section>
+    <figure class="portraitHolder">
+      <Image
+        class="portrait"
+        src={Portrait}
+        alt="A picture of me. I'm sitting in front of one of my paintings and some shelves filled with books. I'm wearing a red striped polo shirt."
+      />
+      <figcaption>
+        Photo by <a
+          href="https://piotrwojsznis.com/"
+          target="_blank"
+          rel="noopener">Piotr Wojsznis</a
+        >
+      </figcaption>
+    </figure>
+  </div>
 </BaseLayout>
